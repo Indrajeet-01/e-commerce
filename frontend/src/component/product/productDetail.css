@@ -1,12 +1,12 @@
 .ProductDetails {
-    background-color: rgb(255, 255, 255);
-    width: 100vw;
-    max-width: 100%;
-    padding: 6vmax;
-    box-sizing: border-box;
-    display: flex;
-  }
-  
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  max-width: 100%;
+padding: 6vmax;
+box-sizing: border-box;
+display: flex;
+}
+
   .ProductDetails > div {
     width: 100%;
     display: flex;
@@ -20,6 +20,10 @@
   
   .ProductDetails > div:last-child {
     align-items: flex-start;
+  }
+
+  .carousel-container {
+    max-width: 25vmax;
   }
   
   .CarouselImage {
