@@ -5,6 +5,7 @@ import ProductCard from './ProductCard'
 import MetaData from '../layout/MetaData'
 import { getProduct } from '../../redux/actions/productActions'
 import { useDispatch, useSelector } from "react-redux"
+import Loader from '../layout/loader/Loader'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -17,6 +18,9 @@ const Home = () => {
     },[dispatch])
   return (
     <Fragment>
+        {loading ? (<Loader/>) :
+        (
+            <Fragment>
         <MetaData title={"shop cart"} />
         <div className="banner">
             <p>Welcome to Shop Cart</p>
@@ -36,6 +40,8 @@ const Home = () => {
             }
             
         </div>
+    </Fragment>
+        )}
     </Fragment>
   )
 }
