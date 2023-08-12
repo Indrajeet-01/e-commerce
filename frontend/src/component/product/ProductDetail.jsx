@@ -8,7 +8,7 @@ import {getProductDetails} from "../../redux/actions/productActions"
 import "./productDetail.css"
 import { useParams } from 'react-router-dom'
 import ReactStars from "react-rating-stars-component"
-
+import ReviewCard from "./ReviewCard"
 const ProductDetail = () => {
   const dispatch = useDispatch()
   const {id} = useParams()
@@ -78,10 +78,25 @@ const ProductDetail = () => {
             <div className="detailsBlock-4">
               Description: <p>{product.description}</p>
             </div>
+
+            <button className="submitReview">Submit Review</button>
+          </div>
+        </div>
+
+        <h3 className="reviewsHeading">REVIEWS</h3>
+        {product.reviews && product.reviews[0] ? (
+          <div className="reviews">
+            {product.reviews && product.reviews.map((review) => 
+                <ReviewCard review={review}/>
+            )}
           </div>
 
+        ) :(
+          <p className="noReviews">No Reviews Yet</p>
 
-        </div>
+        )
+        }
+
     </Fragment>
   )
 }

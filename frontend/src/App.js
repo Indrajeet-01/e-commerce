@@ -7,6 +7,8 @@ import React from "react"
 import Home from "./component/home/Home"
 import Loader from './component/layout/loader/Loader';
 import ProductDetail from './component/product/ProductDetail';
+import Products from './component/product/Products';
+import Search from './component/product/Search';
 
 
 
@@ -24,8 +26,11 @@ function App() {
         <Header/>
         <Routes>
           <Route exact path='/' element={<Home/>}/>
-        <Route exact path='/product/:id' element={<ProductDetail/>}/>
-
+          <Route exact path='/product/:id' element={<ProductDetail/>}/>
+          <Route exact path='/products' element={<Products/>} />
+          <Route path='/products/:keyword' element={<Products/>} />
+          <Route exact path='/search' element={<Search/>} />
+          
         </Routes>
         <Footer/>
       </Router>
