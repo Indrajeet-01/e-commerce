@@ -1,26 +1,23 @@
+import { useSelector } from "react-redux"
 import "./search.css"
 import React, { Fragment, useState } from 'react'
+import Products from "./Products"
 
-const Search = ({history}) => {
-    const [keyword, setKeyword] = useState("")
-    const searchSubmitHandler = (e) => {
-        e.preventDefault()
-        if(keyword.trim()){
-            history.push(`/products/${keyword}`)
-        } else {
-            history.push("/products")
-        }
-    }
+const Search = () => {
+    const {products} = useSelector(state => state.products)
+    const [searchTerm , setSearchTerm] = useState("")
+    
   return (
     <Fragment>
-        <form className="searchBox" onSubmit={searchSubmitHandler}>
+        <form className="searchBox" >
             <input 
                 type="text" 
                 placeholder="search a product"
-                onChange={(e) => setKeyword(e.target.value)}
+                onChange={(e) => {setSearchTerm(e.target.value)}}
             />
             <input type="submit" value="search"/>
         </form>
+        
     </Fragment>
   )
 }

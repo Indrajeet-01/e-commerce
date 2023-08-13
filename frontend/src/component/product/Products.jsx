@@ -4,23 +4,43 @@ import { useSelector,useDispatch } from 'react-redux'
 import { clearErrors, getProduct } from '../../redux/actions/productActions'
 import Loader from '../layout/loader/Loader'
 import ProductCard from '../home/ProductCard'
-import Pagination from "react-js-pagination"
+// import Pagination from "react-js-pagination"
 import { useParams } from 'react-router-dom'
+import {Pagination} from "@mui/material"
+import {Slider, Typography} from '@mui/material'
+
+const categories = [
+    "footwear",
+    "inner wear",
+    "mens wear",
+    "Shirts",
+    "Jeans",
+    "Denims"
+]
+
 
 const Products = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
-    const [currentPage,setCurrentPage] = useState(1)
+    const [currentPage,setPage] = useState(1)
+    const [price, setPrice] = useState([0, 25000])
+    const [category, setCategory] = useState("")
     const {products, loading, error, productsCount,resultPerPage} = useSelector(state => state.products)
 
    
-    const setCurrentPageNo = (e)=>{
-        setCurrentPage(e)
+    const handleChange = (e,value)=>{
+        setPage(value)
+    }
+
+    const priceHandler = (event,  newPrice) => {
+        setPrice(newPrice)
     }
 
     useEffect(() => {
-        dispatch(getProduct(id,currentPage))
-    }, [dispatch,id,currentPage])
+        dispatch(getProduct(id,currentPage,price,category))
+    }, [dispatch,id,currentPage,price,category])
+
+ 
 
 
 
@@ -38,24 +58,38 @@ const Products = () => {
                 }
             </div>
 
+            <div className="filterBox">
+                <Typography>Price</Typography>
+                <Slider
+                    value={price}
+                    onChange={priceHandler}
+                    valueLabelDisplay='auto'
+                    aria-labelledby='range-slider'
+                    min={0}
+                    max={25000}
+                />
+
+                <Typography>Categories</Typography>
+                <ul className="categoryBox">
+                    {categories.map((category) => (
+                        <li className="category-link"
+                            key={category}
+                            onClick={() => setCategory(category)}
+                        >
+                            {category}
+                        </li>
+                    ))}
+                </ul>
+            </div>
             
-                <div className="paginationBox">
+            <div className="paginationBox">
                 <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={resultPerPage}
-                    totalItemsCount={productsCount}
-                    onChange={setCurrentPageNo}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="1st"
-                    lastPageText="last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    
-                    activeClass="pageItemActive"
-                    activeLinkClass="pageLinkActive"
+                    count={10}
+                    page={currentPage}
+                    onChange={handleChange}
                 />
             </div>
+
      
         </Fragment>}
     </Fragment>
