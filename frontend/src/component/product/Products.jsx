@@ -25,6 +25,7 @@ const Products = () => {
     const [currentPage,setPage] = useState(1)
     const [price, setPrice] = useState([0, 25000])
     const [category, setCategory] = useState("")
+    const [ratings, setRatings] = useState(0)
     const {products, loading, error, productsCount,resultPerPage} = useSelector(state => state.products)
 
    
@@ -37,8 +38,8 @@ const Products = () => {
     }
 
     useEffect(() => {
-        dispatch(getProduct(id,currentPage,price,category))
-    }, [dispatch,id,currentPage,price,category])
+        dispatch(getProduct(id,currentPage,price,category,ratings))
+    }, [dispatch,id,currentPage,price,category,ratings])
 
  
 
@@ -80,6 +81,21 @@ const Products = () => {
                         </li>
                     ))}
                 </ul>
+
+                <fieldset>
+                    <Typography component="legend">Ratings Above</Typography>
+                    <Slider
+                        value={ratings}
+                        onChange={(e,newRating) => {
+                            setRatings(newRating)
+                        }}
+                        
+                        aria-labelledby='continuous-slider'
+                        min={0}
+                        max={5}
+                        valueLabelDisplay='auto'
+                    />
+                </fieldset>
             </div>
             
             <div className="paginationBox">
