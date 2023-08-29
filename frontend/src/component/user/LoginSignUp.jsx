@@ -3,7 +3,7 @@ import "./loginSignup.css"
 import { MdFace, MdFace2, MdFace3, MdLockOpen, MdMailOutline } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors, login } from '../../redux/actions/userActions'
+import { clearErrors, login, register } from '../../redux/actions/userActions'
 
 
 
@@ -40,9 +40,9 @@ const LoginSignUp = () => {
         myForm.set("eamil",email)
         myForm.set("password",password)
         myForm.set("avatar",avatar)
-        console.log("sign up form submitted")
+        dispatch(register(myForm))
     }
-
+ 
     const registerDataChange = (e) => {
         if(e.target.name === "avatar"){
             const reader = new FileReader()
