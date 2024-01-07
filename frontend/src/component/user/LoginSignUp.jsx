@@ -37,11 +37,13 @@ const LoginSignUp = () => {
         e.preventDefault()
         const myForm = new FormData()
         myForm.set("name",name)
-        myForm.set("eamil",email)
+        myForm.set("email",email)
         myForm.set("password",password)
         myForm.set("avatar",avatar)
         dispatch(register(myForm))
     }
+
+    
  
     const registerDataChange = (e) => {
         if(e.target.name === "avatar"){
