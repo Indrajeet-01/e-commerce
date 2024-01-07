@@ -1,16 +1,17 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import "./loginSignup.css"
-import { MdFace, MdFace2, MdFace3, MdLockOpen, MdMailOutline } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { MdFace,  MdLockOpen, MdMailOutline } from 'react-icons/md'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors, login, register } from '../../redux/actions/userActions'
+import {  login, register } from '../../redux/actions/userActions'
 
 
 
 const LoginSignUp = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
    
-    const {loading,isAuthenticated} = useSelector((state) => state.user)
+    const {isAuthenticated} = useSelector((state) => state.user)
 
     const loginTab = useRef(null)
     const switcherTab = useRef(null)
@@ -32,6 +33,7 @@ const LoginSignUp = () => {
     const loginSubmit =(e) => {
         e.preventDefault()
         dispatch(login(loginEmail, loginPassword))
+        navigate('/products')
     }
     const registerSubmit = (e) => {
         e.preventDefault()
@@ -41,6 +43,7 @@ const LoginSignUp = () => {
         myForm.set("password",password)
         myForm.set("avatar",avatar)
         dispatch(register(myForm))
+        navigate('/products')
     }
 
     
