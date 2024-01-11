@@ -20,6 +20,7 @@ import {
         quantity,
       },
     });
+    alert('Item added to cart')
   
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
   };

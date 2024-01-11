@@ -17,7 +17,7 @@ const UserOptions = ({ user }) => {
 
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const alert = useAlert();
+  
   const dispatch = useDispatch();
 
   const options = [
