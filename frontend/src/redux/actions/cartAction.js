@@ -16,7 +16,7 @@ import {
         name: data.product.name,
         price: data.product.price,
         image: data.product.images[0].url,
-        stock: data.product.Stock,
+        stock: data.product.stock,
         quantity,
       },
     });

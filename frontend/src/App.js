@@ -14,6 +14,7 @@ import store from './store'
 import { loadUser } from './redux/actions/userActions';
 import { useSelector } from 'react-redux';
 import UserOptions from './component/layout/header/UserOptions';
+import Cart from './component/cart/Cart';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
           <Route path='/products/:keyword' element={<Products/>} />
           <Route exact path='/search' element={<Search/>} />
           <Route exact path='/login' element={<LoginSignUp/>} />
-          
+          <Route exact path='/cart' element={<Cart/>} />
         </Routes>
         <Footer/>
       </Router>

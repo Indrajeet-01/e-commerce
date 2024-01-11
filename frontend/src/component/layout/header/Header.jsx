@@ -39,6 +39,7 @@ const options = {
   SearchIconElement:MdSearch,
   searchIconMargin:"1vmax",
   cartIcon:true,
+  cartIconUrl:"/cart",
   cartIconColor: "rgba(35, 35, 35,0.8)",
   CartIconElement:MdAddShoppingCart,
 };
