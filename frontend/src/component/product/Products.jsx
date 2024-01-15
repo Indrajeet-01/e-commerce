@@ -7,7 +7,7 @@ import ProductCard from '../home/ProductCard'
 // import Pagination from "react-js-pagination"
 import { useParams } from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import {Pagination} from "@mui/material"
+import Pagination from "react-js-pagination"
 import {Slider, Typography} from '@mui/material'
 
 const categories = [
@@ -23,7 +23,7 @@ const categories = [
 const Products = () => {
     const dispatch = useDispatch()
     
-    const {id} = useParams()
+    const {keyword} = useParams()
     const [currentPage,setCurrentPage] = useState(1)
     const [price, setPrice] = useState([0, 25000])
     const [category, setCategory] = useState("")
@@ -31,21 +31,22 @@ const Products = () => {
     const {products, loading, error, productsCount,resultPerPage, filteredProductsCount,} = useSelector((state) => state.products)
 
     let count = filteredProductsCount;
-    const setCurrentPageNo = (e) => {
-        setCurrentPage(e);
+    const setCurrentPageNo = (pageNumber) => {
+        setCurrentPage(pageNumber);
       };
 
     const priceHandler = (event,  newPrice) => {
         setPrice(newPrice)
     }
-
+ 
+    
     useEffect(() => {
         if (error) {
             
             dispatch(clearErrors());
           }
-        dispatch(getProduct(id,currentPage,price,category,ratings))
-    }, [dispatch,id,currentPage,price,category,ratings])
+        dispatch(getProduct(keyword,currentPage,price,category,ratings))
+    }, [dispatch,keyword,currentPage,price,category,ratings])
 
  
 
@@ -104,17 +105,26 @@ const Products = () => {
                 </fieldset>
             </div>
             
-            
+            {resultPerPage < productsCount && (
             <div className="paginationBox">
-                <Pagination
-
-                    count={5}
-                    page={currentPage}
-                    onChange={setCurrentPageNo}
-                />
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resultPerPage}
+                totalItemsCount={productsCount}
+                onChange={setCurrentPageNo}
+                nextPageText="Next"
+                prevPageText="Prev"
+                firstPageText="1st"
+                lastPageText="Last"
+                itemClass="page-item"
+                linkClass="page-link"
+                activeClass="pageItemActive"
+                activeLinkClass="pageLinkActive"
+                
+              />
             </div>
+          )}
 
-            
         </Fragment>
         )}
     </Fragment>

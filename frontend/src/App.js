@@ -15,6 +15,10 @@ import { loadUser } from './redux/actions/userActions';
 import { useSelector } from 'react-redux';
 import UserOptions from './component/layout/header/UserOptions';
 import Cart from './component/cart/Cart';
+import Shipping from './component/cart/Shipping';
+import Profile from './component/user/Profile';
+import ProtectedRoute from './component/route/ProtectedRoute';
+import ConfirmOrder from './component/cart/ConfirmOrder';
 
 
 function App() {
@@ -39,9 +43,13 @@ function App() {
           <Route path='/products/:keyword' element={<Products/>} />
           <Route exact path='/search' element={<Search/>} />
           <Route exact path='/login' element={<LoginSignUp/>} />
+          <Route exact path='/account' element={<Profile/>} />
+
           <Route exact path='/cart' element={<Cart/>} />
+          <Route exact path='/shipping' element={<Shipping/>} />
+          <Route exact path='/order/confirm' element={<ConfirmOrder/>} />
         </Routes>
-        <Footer/>
+        <Footer/> 
       </Router>
     </div>
   );
