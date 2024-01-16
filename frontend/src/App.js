@@ -19,6 +19,10 @@ import Shipping from './component/cart/Shipping';
 import Profile from './component/user/Profile';
 import ProtectedRoute from './component/route/ProtectedRoute';
 import ConfirmOrder from './component/cart/ConfirmOrder';
+import UpdateProfile from './component/user/UpdateProfile';
+import ForgotPassword from './component/user/ForgotPassword';
+import UpdatePassword from './component/user/UpdatePassword';
+import ResetPassword from './component/user/ResetPassword';
 
 
 function App() {
@@ -42,8 +46,14 @@ function App() {
           <Route exact path='/products' element={<Products/>} />
           <Route path='/products/:keyword' element={<Products/>} />
           <Route exact path='/search' element={<Search/>} />
+          
           <Route exact path='/login' element={<LoginSignUp/>} />
           <Route exact path='/account' element={<Profile/>} />
+
+          <Route exact path='/me/update' element={<UpdateProfile/>} />
+          <Route exact path='/password/forgot' element={<ForgotPassword/>} />
+          <Route exact path='/password/update' element={<UpdatePassword/>} />
+          <Route exact path='/password/reset/:token' element={<ResetPassword/>} />
 
           <Route exact path='/cart' element={<Cart/>} />
           <Route exact path='/shipping' element={<Shipping/>} />
