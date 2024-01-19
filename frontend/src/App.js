@@ -3,7 +3,7 @@ import Footer from "./component/layout/footer/Footer"
 import './App.css';
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 import WebFont from "webfontloader"
-import React from "react"
+import React, { useState } from "react"
 import Home from "./component/home/Home"
 import Loader from './component/layout/loader/Loader';
 import ProductDetail from './component/product/ProductDetail';
@@ -23,10 +23,19 @@ import UpdateProfile from './component/user/UpdateProfile';
 import ForgotPassword from './component/user/ForgotPassword';
 import UpdatePassword from './component/user/UpdatePassword';
 import ResetPassword from './component/user/ResetPassword';
+import axios from 'axios';
+import Payment from './component/cart/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import OrderSuccess from './component/cart/OrderSuccess';
+import MyOrders from './component/orders/MyOrders';
+import OrderDetails from './component/orders/OrderDetails';
 
 
 function App() {
   const {isAuthenticated, user} = useSelector((state) => state.user)
+
+
   React.useEffect(()=>{
     WebFont.load({
       google:{
@@ -34,12 +43,14 @@ function App() {
       }
     })
     store.dispatch(loadUser)
-  },[])
+    
+  },[]) 
   return (
     <div className="App">
       <Router>
         <Header/>
         {isAuthenticated && <UserOptions user={user} />}
+        
         <Routes>
           <Route exact path='/' element={<Home/>}/>
           <Route exact path='/product/:id' element={<ProductDetail/>}/>
@@ -49,6 +60,8 @@ function App() {
           
           <Route exact path='/login' element={<LoginSignUp/>} />
           <Route exact path='/account' element={<Profile/>} />
+          <Route exact path='/orders' element={<MyOrders/>} />
+          <Route exact path='/order/:id' element={<OrderDetails/>} />
 
           <Route exact path='/me/update' element={<UpdateProfile/>} />
           <Route exact path='/password/forgot' element={<ForgotPassword/>} />
@@ -58,6 +71,8 @@ function App() {
           <Route exact path='/cart' element={<Cart/>} />
           <Route exact path='/shipping' element={<Shipping/>} />
           <Route exact path='/order/confirm' element={<ConfirmOrder/>} />
+          <Route exact path='/process/payment' element={<Payment/>} />
+          <Route exact path='/success' element={<OrderSuccess/>} />
         </Routes>
         <Footer/> 
       </Router>

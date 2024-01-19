@@ -6,7 +6,7 @@ import "./ConfirmOrder.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
-const ConfirmOrder = ({ history }) => {
+const ConfirmOrder = () => {
     const navigate = useNavigate()
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
@@ -16,9 +16,9 @@ const ConfirmOrder = ({ history }) => {
     0
   );
 
-  const shippingCharges = subtotal > 1000 ? 0 : 200;
+  const shippingCharges = subtotal > 2000 ? 0 : 40;
 
-  const tax = subtotal * 0.18;
+  // const tax = subtotal * 0.18;
 
   const totalPrice = subtotal + shippingCharges;
 
@@ -28,7 +28,7 @@ const ConfirmOrder = ({ history }) => {
     const data = {
       subtotal,
       shippingCharges,
-      tax,
+      // tax,
       totalPrice,
     };
 

@@ -10,6 +10,10 @@ const orderSchema = new mongoose.Schema({
             type:String,
             required:true
         },
+        state: {
+            type: String,
+            required: true,
+        },
         country: {
             type:String,
             required:true,
@@ -74,11 +78,11 @@ const orderSchema = new mongoose.Schema({
         default:0,
         required:true
     },
-    taxPrice: {
-        type:Number,
-        default:0,
-        required:true
-    },
+    // taxPrice: {
+    //     type:Number,
+    //     default:0,
+    //     required:true
+    // },
     shippingPrice: {
         type:Number,
         default:0,
