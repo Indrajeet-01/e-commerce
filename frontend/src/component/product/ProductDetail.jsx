@@ -94,13 +94,13 @@ const ProductDetail = () => {
                   <input className='input' readOnly type="number" value={quantity} />
                   <button onClick={increaseQuantity}>+</button>
                 </div>{" "}
-                <button onClick={addToCartHandler}>Add to Cart</button>
+                <button disabled={product.stock < 1 ? true : false} onClick={addToCartHandler}>Add to Cart</button>
               </div>
 
               <p>
                 Status: {" "}
-                <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
-                  {product.Stock < 1 ? "Out of Stock" : "In Stock"}
+                <b className={product.stock < 1 ? "redColor" : "greenColor"}>
+                  {product.stock < 1 ? "Out of Stock" : "In Stock"}
                 </b>
               </p>
             </div>

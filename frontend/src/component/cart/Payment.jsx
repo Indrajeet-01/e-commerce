@@ -20,6 +20,7 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { createOrder, clearErrors } from "../../redux/actions/orderAction";
+import { clearCart } from "../../redux/actions/cartAction";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -107,6 +108,7 @@ const Payment = () => {
           };
 
           dispatch(createOrder(order));
+          dispatch(clearCart())
 
           navigate("/success");
         } else {

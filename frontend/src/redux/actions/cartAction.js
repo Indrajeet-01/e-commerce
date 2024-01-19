@@ -2,6 +2,7 @@ import {
     ADD_TO_CART,
     REMOVE_CART_ITEM,
     SAVE_SHIPPING_INFO,
+    CLEAR_CART,
   } from "../constants/cartConstants";
   import axios from "axios";
   
@@ -43,4 +44,14 @@ import {
     });
   
     localStorage.setItem("shippingInfo", JSON.stringify(data));
+  };
+
+  export const clearCart = () => (dispatch) => {
+    // Dispatch the action to clear the cart in Redux
+    dispatch({
+      type: CLEAR_CART,
+    });
+  
+    // Clear the cart from localStorage
+    localStorage.removeItem("cartItems");
   };
