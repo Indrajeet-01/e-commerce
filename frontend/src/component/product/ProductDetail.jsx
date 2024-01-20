@@ -4,22 +4,34 @@ import {Carousel} from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import "@mui/material/styles"
 
-import {getProductDetails} from "../../redux/actions/productActions"
+import {getProductDetails, newReview, clearErrors} from "../../redux/actions/productActions"
+import { NEW_REVIEW_RESET } from "../../redux/constants/productConstant";
 import "./productDetail.css"
 import { useParams } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import ReactStars from "react-rating-stars-component"
 import ReviewCard from "./ReviewCard"
 import { addItemsToCart } from '../../redux/actions/cartAction'
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 
 const ProductDetail = () => {
   const dispatch = useDispatch()
   
   const {id} = useParams()
   const {product,loading,error} = useSelector((state) => state.productDetails)
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReview
+  );
 
   const options = {
-    size: "large",
+    
     value: product.ratings,
     readOnly: true,
     precision: 0.5,
@@ -49,10 +61,40 @@ const ProductDetail = () => {
     
   }
 
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true)
+
+  }
+
+  const reviewSubmitHandler = () =>  {
+    const myForm = new FormData()
+
+    myForm.set("rating", rating)
+    myForm.set("comment", comment)
+    myForm.set("productId", id)
+    dispatch(newReview(myForm))
+    setOpen(false)
+
+  }
+
 
   useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch(clearErrors());
+    }
+
+    if (reviewError) {
+      alert(reviewError);
+      dispatch(clearErrors());
+    }
+
+    if (success) {
+      alert.success("Review Submitted Successfully");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
     dispatch(getProductDetails(id))
-  },[dispatch,id])
+  },[dispatch,id,error,success, reviewError])
 
   return (
     <Fragment>
@@ -83,8 +125,10 @@ const ProductDetail = () => {
               <p>Product # {product._id}</p>
             </div>
             <div className="detailsBlock-2">
-              <ReactStars {...options}/>
-              <span>({product.numOfReviews}) Reviews</span>
+              <Rating {...options}/>
+              <span className="detailsBlock-2-span">
+                {" "}({product.numOfReviews}) Reviews
+              </span>
             </div>
             <div className="detailsBlock-3">
               <h1>{`₹${product.price}`}</h1>
@@ -109,11 +153,44 @@ const ProductDetail = () => {
               Description: <p>{product.description}</p>
             </div>
 
-            <button className="submitReview">Submit Review</button>
+            <button className="submitReview" onClick={submitReviewToggle}>Submit Review</button>
           </div>
         </div>
 
         <h3 className="reviewsHeading">REVIEWS</h3>
+
+        <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          >
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <Rating
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+                size="large"
+              />
+
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+
         {product.reviews && product.reviews[0] ? (
           <div className="reviews">
             {product.reviews && product.reviews.map((review) => 

@@ -30,6 +30,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import OrderSuccess from './component/cart/OrderSuccess';
 import MyOrders from './component/orders/MyOrders';
 import OrderDetails from './component/orders/OrderDetails';
+import Dashboard from './component/admin/Dashboard';
 
 
 function App() {
@@ -73,6 +74,8 @@ function App() {
           <Route exact path='/order/confirm' element={<ConfirmOrder/>} />
           <Route exact path='/process/payment' element={<Payment/>} />
           <Route exact path='/success' element={<OrderSuccess/>} />
+
+          <Route exact path='/admin/dashboard' element={<Dashboard/>}/>
         </Routes>
         <Footer/> 
       </Router>
