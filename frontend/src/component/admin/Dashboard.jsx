@@ -26,7 +26,7 @@ const Dashboard = () => {
   
   products &&
     products.forEach((item) => {
-      if (item.Stock === 0) {
+      if (item.stock === 0) {
         outOfStock += 1;
       }
     });
