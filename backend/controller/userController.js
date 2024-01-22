@@ -16,7 +16,6 @@ exports.registerUser = catchAsyncError( async(req,res,next)=>{
         width:150,
         crop:"scale"
     })
-
     const {name,email,password} = req.body
  
     const user = await User.create({
@@ -28,10 +27,7 @@ exports.registerUser = catchAsyncError( async(req,res,next)=>{
             url:myCloud.secure_url,
         }
     })
-
     console.log(user)
-
-    
     sendToken(user,201,res)
 })
 
@@ -218,16 +214,25 @@ exports.updateUserRole = catchAsyncError (async (req,res,next) => {
     
 })
 
-// update user role -- Admin Only
-exports.deleteUser = catchAsyncError (async (req,res,next) => {
-    const user = await User.findById(req.params.id)
-    if(!user){
-        return next(new ErrorHandler(`user does not exist with Id:${req.params.id}`))
+
+// Delete User --Admin
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+  
+    if (!user) {
+      return next(
+        new ErrorHander(`User does not exist with Id: ${req.params.id}`, 400)
+      );
     }
-    await user.deleteOne()
+  
+    const imageId = user.avatar.public_id;
+  
+    await cloudinary.v2.uploader.destroy(imageId);
+  
+    await user.remove();
+  
     res.status(200).json({
-        success:true,
-        message:"user deleted successfully"
-    })
-    
-})
+      success: true,
+      message: "User Deleted Successfully",
+    });
+  });
