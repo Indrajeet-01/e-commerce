@@ -1,19 +1,30 @@
-import { useSelector } from "react-redux"
+
 import "./search.css"
 import React, { Fragment, useState } from 'react'
-import Products from "./Products"
+import { useNavigate } from "react-router-dom"
+
 
 const Search = () => {
-    const {products} = useSelector(state => state.products)
-    const [searchTerm , setSearchTerm] = useState("")
+    
+    const [keyword, setKeyword] = useState("");
+    const navigate = useNavigate()
+
+    const searchSubmitHandler = (e) => {
+      e.preventDefault();
+      if (keyword.trim()) {
+        navigate(`/products/${keyword}`);
+      } else {
+        navigate("/products");
+      }
+    };
     
   return (
     <Fragment>
-        <form className="searchBox" >
+        <form className="searchBox" onSubmit={searchSubmitHandler} >
             <input 
                 type="text" 
                 placeholder="search a product"
-                onChange={(e) => {setSearchTerm(e.target.value)}}
+                onChange={(e) => setKeyword(e.target.value)}
             />
             <input type="submit" value="search"/>
         </form>

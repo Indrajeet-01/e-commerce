@@ -31,8 +31,8 @@ const Products = () => {
     const {products, loading, error, productsCount,resultPerPage, filteredProductsCount,} = useSelector((state) => state.products)
 
     let count = filteredProductsCount;
-    const setCurrentPageNo = (pageNumber) => {
-        setCurrentPage(pageNumber);
+    const setCurrentPageNo = (e) => {
+        setCurrentPage(e);
       };
 
     const priceHandler = (event,  newPrice) => {
@@ -46,7 +46,7 @@ const Products = () => {
             dispatch(clearErrors());
           }
         dispatch(getProduct(keyword,currentPage,price,category,ratings))
-    }, [dispatch,keyword,currentPage,price,category,ratings])
+    }, [dispatch,keyword,currentPage,price,category,ratings,error])
 
  
 
@@ -93,7 +93,7 @@ const Products = () => {
                     <Typography component="legend">Ratings Above</Typography>
                     <Slider
                         value={ratings}
-                        onChange={(newRating) => {
+                        onChange={(e,newRating) => {
                             setRatings(newRating)
                         }}
                         

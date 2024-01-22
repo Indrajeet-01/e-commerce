@@ -33,7 +33,7 @@ import {
     DELETE_REVIEW_RESET,
     CLEAR_ERRORS,} from "../constants/productConstant"
 
-export const productReducer = ((state = {product: []}, action) => {
+export const productReducer = ((state = {products: []}, action) => {
     switch (action.type){
         case ALL_PRODUCT_REQUEST: return{
             loading:true,
