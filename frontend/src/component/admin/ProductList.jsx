@@ -35,7 +35,7 @@ const ProductList = () => {
             dispatch({type: DELETE_PRODUCT_RESET})
         }
         dispatch(getAdminProduct())
-    },[dispatch, alert, navigate,])
+    },[dispatch, navigate,])
 
     const columns = [
         { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },

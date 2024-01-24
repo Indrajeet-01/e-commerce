@@ -17,6 +17,9 @@ exports.registerUser = catchAsyncError( async(req,res,next)=>{
         crop:"scale"
     })
     const {name,email,password} = req.body
+
+    console.log(myCloud)
+    console.log(name, email, password)
  
     const user = await User.create({
         name,

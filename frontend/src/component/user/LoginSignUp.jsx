@@ -43,11 +43,10 @@ const LoginSignUp = () => {
         myForm.set("password",password)
         myForm.set("avatar",avatar)
         dispatch(register(myForm))
+        
         navigate('/products')
     }
 
-    
- 
     const registerDataChange = (e) => {
         if(e.target.name === "avatar"){
             const reader = new FileReader()

@@ -1,4 +1,6 @@
 import axios from "axios"
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
     ALL_PRODUCT_FAIL,
@@ -45,12 +47,13 @@ export const getProduct = (keyword="",currentPage=1,price = [0, 25000],category,
             link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`
 
         }
-        const {data} = await axios.get(link)  
+        const {data} = await axios.get(link)   
         
         dispatch({
             type:ALL_PRODUCT_SUCCESS, 
             payload:data
         })
+          
     } catch (error) {
         dispatch({
             type: ALL_PRODUCT_FAIL,
@@ -115,11 +118,13 @@ export const createProduct = (productData) => async (dispatch) => {
         type: NEW_PRODUCT_SUCCESS,
         payload: data,
       });
+      toast.success('Product is created successfully')
     } catch (error) {
       dispatch({
         type: NEW_PRODUCT_FAIL,
         payload: error.response.data.message,
       });
+      toast.error(error)
     }
   };
 
@@ -142,11 +147,13 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         type: UPDATE_PRODUCT_SUCCESS,
         payload: data.success,
       });
+      toast.success('Product is updated successfully')
     } catch (error) {
       dispatch({
         type: UPDATE_PRODUCT_FAIL,
         payload: error.response.data.message,
       });
+      toast.error(error)
     }
   };
   
@@ -161,11 +168,13 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         type: DELETE_PRODUCT_SUCCESS,
         payload: data.success,
       });
+      toast.success('Product is deleted successfully')
     } catch (error) {
       dispatch({
         type: DELETE_PRODUCT_FAIL,
         payload: error.response.data.message,
       });
+      toast.error(error)
     }
   };
 

@@ -4,7 +4,9 @@ import {
     SAVE_SHIPPING_INFO,
     CLEAR_CART,
   } from "../constants/cartConstants";
-  import axios from "axios";
+import axios from "axios";
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
   
   // Add to Cart
   export const addItemsToCart = (id, quantity) => async (dispatch, getState) => {
@@ -21,7 +23,7 @@ import {
         quantity,
       },
     });
-    alert('Item added to cart')
+    toast.success('Item added to cart successfully')
   
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
   };
@@ -32,6 +34,7 @@ import {
       type: REMOVE_CART_ITEM,
       payload: id,
     });
+    toast.success('Item is removed from cart successfully')
   
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
   };

@@ -17,7 +17,7 @@ import UserOptions from './component/layout/header/UserOptions';
 import Cart from './component/cart/Cart';
 import Shipping from './component/cart/Shipping';
 import Profile from './component/user/Profile';
-import ProtectedRoute from './component/route/ProtectedRoute';
+import ProtectedRoute from './component/route/ProtectedRoute'; 
 import ConfirmOrder from './component/cart/ConfirmOrder';
 import UpdateProfile from './component/user/UpdateProfile';
 import ForgotPassword from './component/user/ForgotPassword';
@@ -33,6 +33,10 @@ import OrderDetails from './component/orders/OrderDetails';
 import Dashboard from './component/admin/Dashboard';
 import ProductList from './component/admin/ProductList';
 import NewProduct from './component/admin/NewProduct';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import OrderList from './component/admin/OrderList';
+import ProcessOrder from './component/admin/ProcessOrder';
 
 
 function App() {
@@ -50,6 +54,7 @@ function App() {
   },[]) 
   return (
     <div className="App">
+      <ToastContainer/>
       <Router>
         <Header/>
         {isAuthenticated && <UserOptions user={user} />}
@@ -80,6 +85,8 @@ function App() {
           <Route exact path='/admin/dashboard' element={<Dashboard/>}/>
           <Route exact path='/admin/products' element={<ProductList/>} />
           <Route exact path='/admin/product' element={<NewProduct/>} />
+          <Route exact path='/admin/orders' element={<OrderList/>} />
+          <Route exact path='/admin/order/:id' element={<ProcessOrder/>} />
         </Routes>
         <Footer/> 
       </Router>

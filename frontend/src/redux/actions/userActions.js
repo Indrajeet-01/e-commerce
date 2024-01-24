@@ -37,6 +37,8 @@ import {
     USER_DETAILS_FAIL,
 } from "../constants/userConstants"
 import axios from "axios"
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 // login
 export const login = (email,password) => async (dispatch) => {
@@ -51,12 +53,12 @@ export const login = (email,password) => async (dispatch) => {
         )
 
         dispatch({type:LOGIN_SUCCESS, payload:data.user})
-
+        toast.success('You logged in successfully')
     } catch(error) {
         dispatch({
             type:LOGIN_FAIL,payload: error.response.data.message
         })
-
+        toast.error(error)
     }
 }
 
@@ -67,16 +69,18 @@ export const register = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    
-
     const { data } = await axios.post(`/api/v1/register`, userData, config);
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
+    toast.success('You registered successfully')
+    
+
   } catch (error) {
     dispatch({
       type: REGISTER_USER_FAIL,
       payload: error.response.data.message,
     });
+    toast.error(error)
   }
 };
 
@@ -99,8 +103,10 @@ export const logout = () => async (dispatch) => {
     await axios.get(`/api/v1/logout`);
 
     dispatch({ type: LOGOUT_SUCCESS });
+    toast.success('You logged out successfully')
   } catch (error) {
     dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+    toast.success(error)
   }
 };
 
@@ -118,11 +124,13 @@ export const updateProfile = (userData) => async (dispatch) => {
     const { data } = await axios.put(`/api/v1/me/update`, userData, config);
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
+    toast.success('Your profile is updated successfully')
   } catch (error) {
     dispatch({
       type: UPDATE_PROFILE_FAIL,
       payload: error.response.data.message,
     });
+    toast.error(error)
   }
 };
 
@@ -227,11 +235,13 @@ export const updateUser = (id, userData) => async (dispatch) => {
     );
 
     dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
+    toast.success('User is updated successfully')
   } catch (error) {
     dispatch({
       type: UPDATE_USER_FAIL,
       payload: error.response.data.message,
     });
+    toast.error(error)
   }
 };
 
@@ -243,10 +253,12 @@ export const deleteUser = (id) => async (dispatch) => {
     const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
 
     dispatch({ type: DELETE_USER_SUCCESS, payload: data });
+    toast.success('User deleted successfully')
   } catch (error) {
     dispatch({
       type: DELETE_USER_FAIL,
       payload: error.response.data.message,
     });
+    toast.error(error)
   }
 };

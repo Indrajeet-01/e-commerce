@@ -21,6 +21,8 @@ import {
 } from "../constants/orderConstants";
   
 import axios from "axios";
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const createOrder = (order) => async (dispatch) => {
     try {
@@ -31,11 +33,13 @@ export const createOrder = (order) => async (dispatch) => {
         }
         const {data} = await axios.post('/api/v1/order/new', order, config)
         dispatch({type: CREATE_ORDER_SUCCESS, payload:data})
+        toast.success('Order is placed successfully')
     } catch (error) {
         dispatch({
             type: CREATE_ORDER_FAIL,
             payload: error.response.data.message
         })
+        toast.error(error)
     }
 }
 
@@ -88,11 +92,13 @@ export const getAllOrders = () => async (dispatch) => {
       );
   
       dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
+      toast.success('Order is updated successfully')
     } catch (error) {
       dispatch({
         type: UPDATE_ORDER_FAIL,
         payload: error.response.data.message,
       });
+      toast.error(error)
     }
   };
   
@@ -104,11 +110,13 @@ export const getAllOrders = () => async (dispatch) => {
       const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
   
       dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
+      toast.success('Order is deleted successfully')
     } catch (error) {
       dispatch({
         type: DELETE_ORDER_FAIL,
         payload: error.response.data.message,
       });
+      toast.error(error)
     }
   };
 
